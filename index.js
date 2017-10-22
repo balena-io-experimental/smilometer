@@ -3,8 +3,24 @@ const fs = require('fs');
 const childProcess = require('child_process');
 const cognitive = require('cognitive-services');
 const express = require('express');
+const Blinkt = require('node-blinkt');
 
-// TODO: blink a red light, to show we're recording?
+const leds = new Blinkt();
+leds.setup();
+leds.clearAll();
+leds.sendUpdate();
+
+// Blink the leds with a low red light, to show we're recording
+let ledsOn = false;
+setInterval(() => {
+  if (ledsOn) {
+    leds.clearAll();
+  } else {
+    leds.setAllPixels(255, 0, 0, 0.1);
+  }
+  ledsOn = !ledsOn;
+  leds.sendUpdate();
+}, 1000);
 
 const PHOTO_FREQUENCY = 5000;
 
