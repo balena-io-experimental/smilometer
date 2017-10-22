@@ -1,0 +1,26 @@
+{
+  "name": "smilometer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "emotion-api",
+    "machine-learning",
+    "iot",
+    "resin",
+    "resin.io",
+    "azure"
+  ],
+  "author": "Tim Perry <pimterry@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "cognitive-services": "^0.3.4",
+    "express": "^4.16.2",
+    "lodash": "^4.17.4",
+    "node-blinkt": "Irrelon/node-blinkt#2324852"
+  }
+}
