@@ -19,7 +19,7 @@ setInterval(() => {
       console.warn(`raspistill exited with code ${code}`);
     } else {
       console.debug(`Took photo ${photoId}`);
-      submitToAzure(photoid);
+      submitToAzure(photoId);
     }
   });
 }, PHOTO_FREQUENCY);
@@ -44,7 +44,7 @@ function submitToAzure(photoId) {
 }
 
 const app = express();
-app.get('', (req, res) => {
+app.get('/', (req, res) => {
   res.status(200).send('Hi there!');
   // TODO: Build an HTML page the uses the results, and shows a nice graph
 });
