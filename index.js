@@ -22,8 +22,6 @@ setInterval(() => {
   leds.sendUpdate();
 }, 1000);
 
-const PHOTO_FREQUENCY = 10000;
-
 const EMOTIONS = [
   "anger",
   "disgust",
@@ -34,29 +32,36 @@ const EMOTIONS = [
   "surprise"
 ]
 
-const scores = []
+const scores = [];
 
-setInterval(() => {
-  let photoId = Date.now();
-  let camProc = childProcess.spawn('raspistill', [
-    '-vf',
-    '-hf',
-    '--width', '1024',
-    '--height', '768',
-    '-o',
-    `/tmp/photo-${photoId}.jpg`], {
-    stdio: 'inherit'
-  });
+function recordConstantly() {
+  return takeAPhoto().then(recordConstantly);
+}
 
-  camProc.on('close', (code) => {
-    if (code !== 0) {
-      console.warn(`raspistill exited with code ${code}`);
-    } else {
-      console.debug(`Took photo ${photoId}`);
-      submitToAzure(photoId);
-    }
+function takeAPhoto() {
+  return new Promise((resolve, reject) => {
+    let photoId = Date.now();
+    let camProc = childProcess.spawn('raspistill', [
+      '-vf',
+      '-hf',
+      '--width', '1024',
+      '--height', '768',
+      '-o',
+      `/tmp/photo-${photoId}.jpg`], {
+      stdio: 'inherit'
+    });
+
+    camProc.on('close', (code) => {
+      if (code !== 0) {
+        console.warn(`raspistill exited with code ${code}`);
+      } else {
+        console.log(`Took photo ${photoId}`);
+        submitToAzure(photoId);
+      }
+      resolve();
+    });
   });
-}, PHOTO_FREQUENCY);
+}
 
 const emotionClient = new cognitive.emotion({
   apiKey: process.env.EMOTION_API_KEY,
