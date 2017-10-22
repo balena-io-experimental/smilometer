@@ -41,6 +41,8 @@ setInterval(() => {
   let camProc = childProcess.spawn('raspistill', [
     '-vf',
     '-hf',
+    '--width', '1024',
+    '--height', '768',
     '-o',
     `/tmp/photo-${photoId}.jpg`], {
     stdio: 'inherit'
