@@ -16,13 +16,13 @@ setInterval(() => {
   if (ledsOn) {
     leds.clearAll();
   } else {
-    leds.setAllPixels(255, 0, 0, 0.1);
+    leds.setAllPixels(255, 0, 0, 0.05);
   }
   ledsOn = !ledsOn;
   leds.sendUpdate();
 }, 1000);
 
-const PHOTO_FREQUENCY = 5000;
+const PHOTO_FREQUENCY = 10000;
 
 const EMOTIONS = [
   "anger",
@@ -36,9 +36,13 @@ const EMOTIONS = [
 
 const scores = []
 
-const noop = () => setInterval(() => {
+setInterval(() => {
   let photoId = Date.now();
-  let camProc = childProcess.spawn('raspistill', ['-vf', '-hf', '-o', `/tmp/photo-${photoId}.jpg`], {
+  let camProc = childProcess.spawn('raspistill', [
+    '-vf',
+    '-hf',
+    '-o',
+    `/tmp/photo-${photoId}.jpg`], {
     stdio: 'inherit'
   });
 
