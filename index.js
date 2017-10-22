@@ -105,7 +105,7 @@ app.get('/', (req, res) => {
       <title>Smilometer</title>
       <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
       <script>
-      let data = ${chartData};
+      let data = ${JSON.stringify(chartData, null, 2)};
       Plotly.newPlot('emotionChart', data);
       </script>
   </head>
