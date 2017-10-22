@@ -26,7 +26,7 @@ setInterval(() => {
 
 const emotionClient = new cognitive.emotion({
   apiKey: process.env.EMOTION_API_KEY,
-  endpoint: 'https://westus.api.cognitive.microsoft.com/emotion/v1.0'
+  endpoint: 'westus.api.cognitive.microsoft.com'
 });
 
 function submitToAzure(photoId) {
