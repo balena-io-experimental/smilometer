@@ -16,7 +16,7 @@ setInterval(() => {
   if (ledsOn) {
     leds.clearAll();
   } else {
-    leds.setAllPixels(255, 0, 0, 0.01);
+    leds.setAllPixels(100, 0, 0, 0.05);
   }
   ledsOn = !ledsOn;
   leds.sendUpdate();
