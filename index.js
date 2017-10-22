@@ -115,7 +115,7 @@ app.get('/', (req, res) => {
 
   res.status(200).send(`<html>
   <head>
-      <title>Smilometer</title>
+      <title>So, how did that make you feel?</title>
       <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
       <script>
       document.addEventListener('DOMContentLoaded', function() {
@@ -128,7 +128,7 @@ app.get('/', (req, res) => {
       </script>
   </head>
   <body>
-    <h1>So how did that make you feel?</h1>
+    <h1>So, how did that make you feel?</h1>
     <div id="emotionChart"></div>
   </body>
 </html>`);
