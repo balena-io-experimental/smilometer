@@ -68,6 +68,9 @@ function submitToAzure(photoId) {
   })
   .then((faces) => {
     console.log(faces);
+
+    if (faces.length === 0) return;
+
     scores.push(_.zipObject(EMOTIONS, EMOTIONS.map((emotion) =>
       _.meanBy(faces, (face) => face.scores[emotion])
     )));
