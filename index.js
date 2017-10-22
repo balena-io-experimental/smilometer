@@ -61,8 +61,29 @@ function submitToAzure(photoId) {
 
 const app = express();
 app.get('/', (req, res) => {
-  res.status(200).send('Hi there!');
-  // TODO: Build an HTML page the uses the results, and shows a nice graph
+  let chartData = EMOTIONS.map((emotion) => {
+    return {
+      x: _.range(scores.length),
+      y: scores.map((score) => score[emotion]),
+      type: 'scatter',
+      name: _.startCase(emotion)
+    };
+  });
+
+  res.status(200).send(`<html>
+  <head>
+      <title>Smilometer</title>
+      <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+      <script>
+      let data = ${chartData};
+      Plotly.newPlot('emotionChart', data);
+      </script>
+  </head>
+  <body>
+    <h1>So how did that make you feel?</h1>
+    <div id="emotionChart"></div>
+  </body>
+</html>`);
 });
 
 app.listen(80, () => console.log('Server started on port 80'));
