@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const fs = require('fs');
 const childProcess = require('child_process');
 const cognitive = require('cognitive-services');
@@ -6,6 +7,17 @@ const express = require('express');
 // TODO: blink a red light, to show we're recording?
 
 const PHOTO_FREQUENCY = 5000;
+
+const EMOTIONS = [
+  "anger",
+  "disgust",
+  "fear",
+  "happiness",
+  "neutral",
+  "sadness",
+  "surprise"
+]
+
 const scores = []
 
 setInterval(() => {
@@ -36,7 +48,9 @@ function submitToAzure(photoId) {
   })
   .then((faces) => {
     console.log(faces);
-    scores.push(faces.map((face) => face.scores));
+    scores.push(_.zipObject(EMOTIONS, EMOTIONS.map((emotion) =>
+      _.meanBy(faces, (face) => face.scores[emotion])
+    )));
   })
   .catch((err) => {
       console.error('Error submitting to the emotion API: ' + err.toString());
