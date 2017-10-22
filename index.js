@@ -108,7 +108,10 @@ app.get('/', (req, res) => {
       <script>
       document.addEventListener('DOMContentLoaded', function() {
         let data = ${JSON.stringify(chartData, null, 2)};
-        Plotly.newPlot('emotionChart', data);
+        Plotly.newPlot('emotionChart', data, {
+          width: document.documentElement.clientWidth,
+          height: document.documentElement.clientWidth - 250
+        });
      });
       </script>
   </head>
