@@ -37,6 +37,7 @@ const scores = [];
 function recordConstantly() {
   return takeAPhoto().then(recordConstantly);
 }
+recordConstantly();
 
 function takeAPhoto() {
   return new Promise((resolve, reject) => {
