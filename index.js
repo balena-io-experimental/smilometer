@@ -36,7 +36,7 @@ const EMOTIONS = [
 
 const scores = []
 
-setInterval(() => {
+const noop = () => setInterval(() => {
   let photoId = Date.now();
   let camProc = childProcess.spawn('raspistill', ['-vf', '-hf', '-o', `/tmp/photo-${photoId}.jpg`], {
     stdio: 'inherit'
