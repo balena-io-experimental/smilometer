@@ -91,6 +91,18 @@ function submitToAzure(photoId) {
 }
 
 const app = express();
+
+app.get('/photo/:id', (req, res) => {
+  let id = req.params.id;
+
+  if (!id.match(/^\d+$/)) {
+    console.warn('Invalid id', id);
+    res.status(400).send('Invalid id');
+  }
+
+  res.sendFile(`/tmp/photo-${id}.jpg`);
+});
+
 app.get('/', (req, res) => {
   let chartData = EMOTIONS.map((emotion) => {
     return {
