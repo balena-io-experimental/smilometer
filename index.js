@@ -51,6 +51,8 @@ function submitToAzure(photoId) {
     scores.push(_.zipObject(EMOTIONS, EMOTIONS.map((emotion) =>
       _.meanBy(faces, (face) => face.scores[emotion])
     )));
+
+    console.log(scores[scores.length - 1]);
   })
   .catch((err) => {
       console.error('Error submitting to the emotion API: ' + err.toString());
